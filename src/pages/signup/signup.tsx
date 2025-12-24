@@ -1,3 +1,5 @@
+import "./signup.css";
+
 const Signup  = () => {
     return (
         <div className= "signupContainer">
@@ -6,6 +8,7 @@ const Signup  = () => {
                 <h2>Registeration Form</h2>
 
                 <div className="formContainer">
+
                     <form>
 
                         <label>FullName</label>
@@ -19,8 +22,13 @@ const Signup  = () => {
 
                         <label>Confirm Password</label>
                         <input type="password" placeholder="Confirm Password" required/>
-                        
+
                     </form>
+
+                    <div className="signupButton">
+                        <button type="submit">Sign Up</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
