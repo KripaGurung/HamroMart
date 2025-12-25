@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "./signup.css";
-
 interface SignupFormDataProps {
   name: string;
   email: string;
@@ -16,38 +16,59 @@ const Signup = () => {
         password: "",
         confirmPassword: "",
     });
+
+    const navigate = useNavigate();
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         
-        setFormData((prev) => ({...prev,[name]: value,}));
+        setFormData((prev) => ({...prev,[name]: value, }));
     };
     
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            toast.error("Invalid email format!");
-            return;
+        toast.error("Invalid email format!");
+        return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            toast.error("Password doesn't match!");
+        toast.error("Password doesn't match!");
         return;
         }
 
         console.log("Form Submitted!", formData);
-        toast.success("Signup Successful!");
+        
+        try {
+            const res = await fetch("https://dummyjson.com/users/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstName: formData.name,
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+            
+            const data = await res.json();
+            console.log("Signup Response:", data);
+        
+            toast.success("Signup Successful!");
+            navigate("/");
+            
+        } catch (error) {
+            console.log(error);
+            toast.error("Signup Failed!");
+        }
     };
 
   return (
         <div className="signupContainer">
-
             <div className="signupBox">
                 <h2>Registration Form</h2>
 
                 <div className="formContainer">
-
                     <form onSubmit={handleSubmit} noValidate>
 
                         <label>Full Name</label>
@@ -65,7 +86,7 @@ const Signup = () => {
                         <div className="signupButton">
                             <button type="submit">Sign Up</button>
                         </div>
-
+                    
                         <p className="loginLink">Already have an account? <a href="/">Login</a></p>
 
                     </form>
