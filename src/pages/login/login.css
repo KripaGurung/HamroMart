@@ -32,7 +32,7 @@
 .loginBox form label {
     display: block;
     margin-bottom: 8px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: #333;
 }
@@ -40,7 +40,7 @@
 .loginBox form input {
     display: block;
     width: 100%;
-    padding: 14px 15px;
+    padding: 16px 15px;
     margin-bottom: 20px;
     border-radius: 8px;
     border: 1px solid #cfcfcf;

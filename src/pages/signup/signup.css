@@ -52,7 +52,7 @@
 .signupButton button {
     margin: auto;
     margin-top: 20px;
-    width: 40%;
+    width: 100%;
     display: block;
     padding: 12px 14px;
     border-radius: 8px;
