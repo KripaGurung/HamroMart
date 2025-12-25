@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
+
 interface SignupFormDataProps {
   name: string;
   email: string;
@@ -21,21 +22,20 @@ const Signup = () => {
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        
-        setFormData((prev) => ({...prev,[name]: value, }));
+        setFormData((prev) => ({...prev,[name]: value }));
     };
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        toast.error("Invalid email format!");
-        return;
+            toast.error("Invalid email format!");
+            return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-        toast.error("Password doesn't match!");
-        return;
+            toast.error("Password doesn't match!");
+            return;
         }
 
         console.log("Form Submitted!", formData);
