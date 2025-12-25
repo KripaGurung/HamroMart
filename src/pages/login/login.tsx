@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux"; 
+import type { RootState } from "../../redux/store";
 import "./login.css";
 
 interface LoginFormDataProps {
@@ -16,33 +18,24 @@ const Login: React.FC = () => {
 
     const navigate = useNavigate();
 
+    const storedUser = useSelector((state: RootState) => state.user);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({...prev,[name]: value}));
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        try {
-            const res = await fetch("https://dummyjson.com/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await res.json();
-            console.log("Login Data:", data);
-
-            if (data?.token) {
-                toast.success("Login Successful!");
-                navigate("/home");
-            } else {
-                toast.error("Invalid Credentials!");
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("Login Failed!");
+        if (
+            formData.username === storedUser.name &&
+            formData.password === storedUser.password
+        ) {
+            toast.success("Login Successful!");
+            navigate("/home");
+        } else {
+            toast.error("Invalid Credentials!");
         }
     };
 

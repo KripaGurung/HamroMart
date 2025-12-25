@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slice/userSlice";
 import "./signup.css";
 
 interface SignupFormDataProps {
@@ -19,6 +21,7 @@ const Signup = () => {
     });
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -39,6 +42,12 @@ const Signup = () => {
         }
 
         console.log("Form Submitted!", formData);
+
+        dispatch(setUser({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+        }));
         
         try {
             const res = await fetch("https://dummyjson.com/users/add", {
@@ -52,7 +61,7 @@ const Signup = () => {
             });
             
             const data = await res.json();
-            console.log("Signup Response:", data);
+            console.log("Form Details: ", data);
         
             toast.success("Signup Successful!");
             navigate("/");
