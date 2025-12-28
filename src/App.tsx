@@ -6,11 +6,13 @@ import Navbar from './componennt/navbar/navbar';
 import Signup from './pages/signup/signup';
 import Login from './pages/login/login';
 import Home from './pages/home/home';
+import Footer from './componennt/footer/footer';
 
 function AppContent() {
   const location = useLocation();
 
   const navbarPaths = ['/home'];
+  const footerPaths = ['/home'];
 
   return (
     <>
@@ -23,6 +25,9 @@ function AppContent() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
       </Routes>
+
+        {footerPaths.includes(location.pathname) && <Footer />}
+        
     </>
   )
 }
