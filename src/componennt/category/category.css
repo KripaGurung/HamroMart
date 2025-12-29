@@ -1,0 +1,41 @@
+.categoryContainer {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 60px;
+    margin: 40px auto;
+    box-sizing: border-box;
+}
+
+.categoryContainer h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+.categoryCard {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.categoryCard h3 {
+    font-size: 16px;
+    color: #444;
+    text-transform: capitalize;
+}
+
+.categoryCard:hover {
+    background: #f5f7ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}

@@ -1,4 +1,4 @@
-.beautyContainer {
+.womenContainer{
     width: 100%;
     max-width: 1200px;
     margin: 40px auto;
@@ -6,50 +6,51 @@
     padding: 0 20px;
 }
 
-.beautyContainer h2 {
+.womenContainer h2 {
     text-align: center;
-    font-size: 26px;
+    font-size: 28px;
     margin-bottom: 30px;
     color: #222;
 }
 
-.beauty {
+.women {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 50px;
 }
 
-.beautyCard {
+.womenCard {
     background: #ffffff;
     border-radius: 12px;
+    overflow: hidden;
     padding: 15px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    height: 290px;
+    height: 290px; 
 }
 
-.beautyCard:hover{
+.womenCard:hover {
     background: #f5f7ff;
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
 }
 
-.beautyCard img {
+.womenCard img {
     width: 100%;
     height: 170px;
     object-fit: contain;
     padding: 10px;
 }
 
-.beautyCard h3 {
+.womenCard h3 {
     font-size: 18px;
     margin: 10px 0 4px;
     color: #333;
 }
 
-.beautyCard p {
+.womenCard p {
     font-size: 16px;
     font-weight: bold;
     color: #0078ff;

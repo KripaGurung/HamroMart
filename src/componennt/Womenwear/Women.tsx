@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import './Beauty.css'
+import './Women.css';
 
 interface Product {
     id: number;
@@ -8,29 +8,29 @@ interface Product {
     thumbnail: string;
 }
 
-const Beauty: React.FC = () => {
-    const [beauty, setBeauty] = useState<Product[]>([]);
+const Women: React.FC = () => {
+    const [women, setWomen] = useState<Product[]>([]);
 
     useEffect(() => {
-        const fetchbeauty = async () => {
+        const fetchwomen = async () => {
             try {
-                const respone = await fetch("https://dummyjson.com/products/category/beauty");
+                const respone = await fetch("https://dummyjson.com/products/category/womens-dresses");
                 const data = await respone.json();
-                setBeauty(data.products.slice(0, 4));
+                setWomen(data.products.slice(0, 4));
             }catch (error) {
-                console.error("Failed to fetch beauty products: ", error)
+                console.error('Falied to fetch Women wear product: ', error)
             }
         };
 
-        fetchbeauty();
+        fetchwomen();
     }, []);
 
     return (
-        <div className="beautyContainer">
-            <h2>Beauty</h2>
+        <div className="womenContainer">
+            <h2>Women Wear</h2>
             <div className="beauty">
-                {beauty.map((product) => (
-                    <div key={product.id} className="beautyCard">
+                {women.map((product) => (
+                    <div key={product.id} className="womenCard">
                         <img src={product.thumbnail} alt={product.title} />
                         <h3>{product.title}</h3>
                         <p>${product.price}</p>
@@ -39,7 +39,6 @@ const Beauty: React.FC = () => {
             </div>
         </div>
     )
-    
 }
 
-export default Beauty;
+export default Women;
