@@ -12,7 +12,7 @@ interface SignupFormDataProps {
   confirmPassword: string;
 }
 
-const Signup = () => {
+const Signup: React.FC = () => {
     const [formData, setFormData] = useState<SignupFormDataProps>({
         name: "",
         email: "",

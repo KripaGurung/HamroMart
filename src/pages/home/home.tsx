@@ -3,6 +3,7 @@ import Electronics from "../../componennt/Electronics/Electronics";
 import Beauty from "../../componennt/Beauty/Beauty";
 import Women from "../../componennt/Womenwear/Women";
 import Category from "../../componennt/category/Category";
+import Mens from "../../componennt/Mens/Mens";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <Category />
             <Women />
             <Electronics />
+            <Mens />
             <Beauty/>
         </div>
     )

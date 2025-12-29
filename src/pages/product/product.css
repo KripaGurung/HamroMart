@@ -1,0 +1,75 @@
+.productContainer {
+    width: 90%;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+}
+
+.searchFilter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search input {
+    width: 300px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search input:focus {
+    border-color: #007bff;
+}
+
+.productList {
+    width: 100%;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.productCard {
+    background: #fff;
+    border: 1px solid #0d47a1;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.productCard:hover {
+    background: #f5f7ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.productCard img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.productCard h3 {
+    font-size: 16px;
+    margin: 10px 0 6px;
+}
+
+.productCard p {
+    font-size: 15px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.products p {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 18px;
+    color: #0078ff;
+}

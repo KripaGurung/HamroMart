@@ -1,4 +1,4 @@
-.womenContainer {
+.menContainer {
     width: 100%;
     max-width: 1200px;
     margin: 40px auto;
@@ -6,20 +6,20 @@
     padding: 0 20px;
 }
 
-.womenContainer h2 {
+.menContainer h2 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 30px;
     color: #222;
 }
 
-.women {
+.men {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 50px;
 }
 
-.womenCard {
+.menCard {
     background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
@@ -28,29 +28,29 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    height: 290px; 
+    height: 290px;
 }
 
-.womenCard:hover {
+.menCard:hover {
     background: #f5f7ff;
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
 }
 
-.womenCard img {
+.menCard img {
     width: 100%;
     height: 170px;
     object-fit: contain;
     padding: 10px;
 }
 
-.womenCard h3 {
+.menCard h3 {
     font-size: 18px;
     margin: 10px 0 4px;
     color: #333;
 }
 
-.womenCard p {
+.menCard p {
     font-size: 16px;
     font-weight: bold;
     color: #0078ff;

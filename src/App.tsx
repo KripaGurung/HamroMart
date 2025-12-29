@@ -7,12 +7,13 @@ import Signup from './pages/signup/signup';
 import Login from './pages/login/login';
 import Home from './pages/home/home';
 import Footer from './componennt/footer/footer';
+import Product from './pages/product/product';
 
 function AppContent() {
   const location = useLocation();
 
-  const navbarPaths = ['/home'];
-  const footerPaths = ['/home'];
+  const navbarPaths = ['/home', '/products'];
+  const footerPaths = ['/home', '/products'];
 
   return (
     <>
@@ -24,6 +25,7 @@ function AppContent() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/products" element={<Product />} />
       </Routes>
 
         {footerPaths.includes(location.pathname) && <Footer />}
