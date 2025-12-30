@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FiFilter } from "react-icons/fi";
 import './product.css';
 import axios from "axios";
 
@@ -7,18 +8,15 @@ interface ProductDataProp {
     title: string;
     price: number;
     thumbnail: string;
-}
-
-interface Category {
-    id: number;
-    name: string;
+    category: string;
 }
 
 const Product: React.FC = () => {
     const [ product, setProduct ] = useState<ProductDataProp[]>([]);
     const [ searchText, setSearchText ] = useState('');
-    const [filteredProduct, setFilteredProduct ] = useState<ProductDataProp[]>([]);
-    const [ category, setcategory ] = useState<Category[]>([]);
+    const [ filteredProduct, setFilteredProduct ] = useState<ProductDataProp[]>([]);
+    const [ category, setcategory ] = useState<string[]>([]);
+    const [ showCategory, setShowCategory ] = useState(false);
 
     useEffect(() => {
         const fetchproduct = async () => {
@@ -53,6 +51,12 @@ const Product: React.FC = () => {
         setFilteredProduct(filtered);
     };
 
+    const handleCategory = (categoryName: string) => {
+        const filtered = product.filter((item) => item.category === categoryName);
+        setFilteredProduct(filtered);
+        setShowCategory(false);
+    }
+
     return(
         <div className="productContainer">
             <div className="searchFilter">
@@ -61,7 +65,13 @@ const Product: React.FC = () => {
                 </div>
 
                 <div className="Filter">
+                    <button onClick = {() => setShowCategory(!showCategory)}> <FiFilter size={20} /> Filter </button>
 
+                    {showCategory && (
+                        <div className="categoryBox">
+                            {category.map((cat, index) => (<p key ={index} className="categoryItem" onClick = {() => handleCategory(cat)}> {cat} </p>))}
+                        </div>
+                    )}
                 </div>
             </div>
 

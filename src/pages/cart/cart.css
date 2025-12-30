@@ -1,0 +1,46 @@
+.cartContainer {
+    width: 90%;
+    margin: 40px auto;
+}
+
+.cartContainer h1 {
+    margin-bottom: 20px;
+}
+
+.cartProducts {
+    display: grid;
+    gap: 20px;
+}
+
+.cartCard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #0d47a1;
+    border-radius: 10px;
+    padding: 15px;
+    background: white;
+}
+
+.cartCard img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cartInfo h3 {
+    margin-bottom: 6px;
+}
+
+.cartInfo p {
+    margin: 3px 0;
+}
+
+.cartSummary {
+    margin-top: 25px;
+    padding: 15px;
+    border: 2px solid #0d47a1;
+    border-radius: 10px;
+    background: #f5f7ff;
+}
