@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Electronics.css";
 
 interface Product {
@@ -14,11 +15,8 @@ const Electronics: React.FC = () => {
   useEffect(() => {
     const fetchelectronics = async () => {
       try {
-        const response = await fetch(
-          "https://dummyjson.com/products/category/smartphones"
-        );
-        const data = await response.json();
-        setElectronics(data.products.slice(0, 4));
+        const response = await axios.get("https://dummyjson.com/products/category/smartphones");
+        setElectronics(response.data.products.slice(0, 4));
       } catch (error) {
         console.error("Failed to fetch electronics products:", error);
       }

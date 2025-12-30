@@ -53,7 +53,6 @@ const Product: React.FC = () => {
         setFilteredProduct(filtered);
     };
 
-
     return(
         <div className="productContainer">
             <div className="searchFilter">
@@ -62,7 +61,7 @@ const Product: React.FC = () => {
                 </div>
 
                 <div className="Filter">
-                    
+
                 </div>
             </div>
 
