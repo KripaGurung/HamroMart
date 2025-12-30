@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Electronics.css";
+import {electonicURL} from '../../api';
 
 interface Product {
   id: number;
@@ -15,7 +16,7 @@ const Electronics: React.FC = () => {
   useEffect(() => {
     const fetchelectronics = async () => {
       try {
-        const response = await axios.get("https://dummyjson.com/products/category/smartphones");
+        const response = await axios.get(electonicURL);
         setElectronics(response.data.products.slice(0, 4));
       } catch (error) {
         console.error("Failed to fetch electronics products:", error);
@@ -34,6 +35,10 @@ const Electronics: React.FC = () => {
             <img src={product.thumbnail} alt={product.title} />
             <h3>{product.title}</h3>
             <p>${product.price}</p>
+
+            <div className="electronicButton">
+              <button>add to cart</button>
+            </div>
           </div>
         ))}
       </div>

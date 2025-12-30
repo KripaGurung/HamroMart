@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiFilter } from "react-icons/fi";
 import './product.css';
 import axios from "axios";
+import {productURL, categoryListURL} from "../../api";
 
 interface ProductDataProp {
     id: number;
@@ -21,7 +22,7 @@ const Product: React.FC = () => {
     useEffect(() => {
         const fetchproduct = async () => {
             try {
-                const response = await axios.get("https://dummyjson.com/products");
+                const response = await axios.get(productURL);
                 setProduct(response.data.products);
                 setFilteredProduct(response.data.products)
             } catch (error) {
@@ -32,7 +33,7 @@ const Product: React.FC = () => {
 
         const fetchcategory = async () => {
             try {
-                const response = await axios.get("https://dummyjson.com/products/category-list");
+                const response = await axios.get(categoryListURL);
                 setcategory(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -83,6 +84,10 @@ const Product: React.FC = () => {
                             <img src={product.thumbnail} alt={product.title} />
                             <h3>{product.title}</h3>
                             <p>${product.price}</p>
+
+                            <div className="productButton">
+                                <button>add to cart</button>
+                            </div>
                         </div>
                         ))
                     ) : (

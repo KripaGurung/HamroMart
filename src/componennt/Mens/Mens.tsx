@@ -1,6 +1,7 @@
 import React, {useEffect, useState } from "react";
 import axios from "axios";
-import "./Men.css"
+import "./Men.css";
+import {menURL} from "../../api";
 
 interface Product {
     id: number;
@@ -15,7 +16,7 @@ const Mens: React.FC = () => {
     useEffect(() => {
         const fetchmen = async () => {
             try {
-                const response = await axios.get("https://dummyjson.com/products/category/mens-shirts");
+                const response = await axios.get(menURL);
                 setMen(response.data.products.slice(0, 4));
 
             }catch (error) {
@@ -34,6 +35,10 @@ const Mens: React.FC = () => {
                         <img src={product.thumbnail} alt={product.title} />
                         <h3>{product.title}</h3>
                         <p>${product.price}</p>
+
+                        <div className="menButton">
+                            <button>add to cart</button>
+                        </div>
                     </div>
                 ))}
             </div>

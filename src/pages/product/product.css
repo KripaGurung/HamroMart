@@ -84,8 +84,11 @@
     border: 1px solid #0d47a1;
     border-radius: 10px;
     padding: 15px;
-    text-align: center;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 20px;
 }
 
 .productCard:hover {
@@ -118,4 +121,27 @@
     text-align: center;
     font-size: 18px;
     color: #0078ff;
+}
+
+.productButton {
+    margin-top: auto;      /* button lai card ko bottom ma lagcha */
+    display: flex;
+    justify-content: flex-end;   /* right side ma rakcha */
+}
+
+.productButton button {
+    padding: 10px 16px;
+    background-color: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.productButton button:hover {
+    background-color: #007bff;
+    transform: translateY(-2px);
 }

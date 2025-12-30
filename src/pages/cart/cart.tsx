@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './cart.css';
+import {cartURL} from "../../api";
 
 interface CartProduct {
   id: number;
@@ -27,7 +28,7 @@ const Cart: React.FC = () => {
   useEffect(() => {
         const fetchCart = async () => {
             try {
-                const response = await axios.get("https://dummyjson.com/carts/1");
+                const response = await axios.get(cartURL);
                 setCart(response.data);
                 setLoading(false);
             } catch (error) {
@@ -63,6 +64,10 @@ const Cart: React.FC = () => {
                             <p>Price: ${item.price}</p>
                             <p>Quantity: {item.quantity}</p>
                             <p>Total: ${item.total}</p>
+                        </div>
+
+                        <div className="cartRemove">
+                            <button>Remove</button>
                         </div>
                     </div>
                 ))}

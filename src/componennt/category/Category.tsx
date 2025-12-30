@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './category.css';
+import {categoryListURL} from '../../api';
 
 const Category: React.FC = () => {
   
@@ -9,7 +10,7 @@ const Category: React.FC = () => {
   useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get("https://dummyjson.com/products/category-list");
+                const response = await axios.get(categoryListURL);
                 setCategory(response.data);
             } catch (error) {
                 console.error("Failed to fetch category list:", error);
