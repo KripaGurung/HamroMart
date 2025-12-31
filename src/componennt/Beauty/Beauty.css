@@ -23,11 +23,13 @@
     background: #ffffff;
     border-radius: 12px;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    height: 290px;
+    height: 320px;
 }
 
 .beautyCard:hover{
@@ -53,4 +55,30 @@
     font-size: 16px;
     font-weight: bold;
     color: #0078ff;
+}
+
+.beautyButton {
+    margin-top:auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.beautyButton button {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 16px;
+    background-color: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.beautyButton button:hover {
+    background-color: #007bff;
+    transform: translateY(-2px);
 }

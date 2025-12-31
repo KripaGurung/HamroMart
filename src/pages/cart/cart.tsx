@@ -50,6 +50,23 @@ const Cart: React.FC = () => {
         <h2>No Cart Found</h2>;
     }
 
+    const handleRemove = (id: number) => {
+        if (!cart) return;
+
+        const updatedProducts = cart.products.filter(item => item.id !== id);
+        setCart({
+            ...cart,
+            products: updatedProducts,
+            totalProducts: updatedProducts.length,
+            totalQuantity: updatedProducts.reduce((sum, item) => sum + item.quantity, 0),
+            total: updatedProducts.reduce((sum, item) => sum + item.total, 0),
+            discountedTotal: updatedProducts.reduce((sum, item) => sum + item.total, 0),
+        });
+
+        alert("Product deleted successfully!");
+    };
+    
+
   return (
         <div className="cartContainer">
             <h1>Your Cart</h1>
@@ -67,7 +84,7 @@ const Cart: React.FC = () => {
                         </div>
 
                         <div className="cartRemove">
-                            <button>Remove</button>
+                            <button onClick={() => handleRemove(item.id)}>Remove</button>
                         </div>
                     </div>
                 ))}
@@ -79,6 +96,10 @@ const Cart: React.FC = () => {
                 <p>Total Quantity: {cart.totalQuantity}</p>
                 <p>Total Price: ${cart.total}</p>
                 <p>Discounted Total: ${cart.discountedTotal}</p>
+
+                <div className="summaryButton">
+                    <button>Checkout</button>
+                </div>
             </div>
         </div>
     );

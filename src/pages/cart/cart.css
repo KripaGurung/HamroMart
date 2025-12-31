@@ -1,25 +1,34 @@
 .cartContainer {
-    width: 90%;
+    max-width: 1200px;
     margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 70px;
 }
 
 .cartContainer h1 {
-    margin-bottom: 20px;
+    grid-column: 1 / -1;
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #222;
 }
 
 .cartProducts {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
 .cartCard {
     display: flex;
     align-items: center;
-    gap: 15px;
-    border: 1px solid #0d47a1;
-    border-radius: 10px;
+    gap: 20px;
+    background: #fff;
     padding: 15px;
-    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .cartCard img {
@@ -29,23 +38,67 @@
     border-radius: 8px;
 }
 
+.cartInfo {
+    flex: 1;
+}
+
 .cartInfo h3 {
-    margin-bottom: 6px;
+    font-size: 20px;
+    margin-bottom: 8px;
 }
 
 .cartInfo p {
-    margin: 3px 0;
+    margin: 4px 0;
+    color: #555;
 }
 
-.cartRemove{
-    width: 50px;
-    height: 50px;
+.cartRemove button {
+    padding: 8px 14px;
+    background-color: #ff4d4d;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cartRemove button:hover {
+    background-color: #e60000;
 }
 
 .cartSummary {
-    margin-top: 25px;
-    padding: 15px;
-    border: 2px solid #0d47a1;
+    background: #f9f9f9;
+    padding: 25px;
     border-radius: 10px;
-    background: #f5f7ff;
+    height: fit-content;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+    position: sticky;
+    top: 20px;
+}
+
+.cartSummary h2 {
+    margin-bottom: 15px;
+}
+
+.cartSummary p {
+    margin: 8px 0;
+}
+
+.summaryButton {
+    margin-top: 20px;
+}
+
+.summaryButton button {
+    width: 100%;
+    padding: 12px;
+    background: #0d47a1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.summaryButton button:hover {
+    background: #007bff;
 }

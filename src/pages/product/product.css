@@ -124,9 +124,9 @@
 }
 
 .productButton {
-    margin-top: auto;      /* button lai card ko bottom ma lagcha */
+    margin-top: auto; 
     display: flex;
-    justify-content: flex-end;   /* right side ma rakcha */
+    justify-content: flex-end; 
 }
 
 .productButton button {
