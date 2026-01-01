@@ -9,11 +9,12 @@ import Home from './pages/home/home';
 import Footer from './componennt/footer/footer';
 import Product from './pages/product/product';
 import Cart from './pages/cart/cart';
+import Details from './pages/details/Details';
 
 function AppContent() {
   const location = useLocation();
 
-  const navbarPaths = ['/home', '/products', '/cart'];
+  const navbarPaths = ['/home', '/products', '/cart', '/details'];
   const footerPaths = ['/home', '/products'];
 
   return (
@@ -28,6 +29,7 @@ function AppContent() {
         <Route path="/home" element={<Home />} />
         <Route path="/products" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<Details />} />
       </Routes>
 
         {footerPaths.includes(location.pathname) && <Footer />}

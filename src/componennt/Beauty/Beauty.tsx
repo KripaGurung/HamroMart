@@ -2,6 +2,7 @@ import React, {useEffect, useState } from "react";
 import axios from "axios";
 import './Beauty.css'
 import {beautyURL} from "../../api";
+import {Link} from 'react-router-dom';
 
 interface Product {
     id: number;
@@ -31,7 +32,7 @@ const Beauty: React.FC = () => {
             <h2>Beauty</h2>
             <div className="beauty">
                 {beauty.map((product) => (
-                    <div key={product.id} className="beautyCard">
+                    <Link to={`/product/${product.id}`} key={product.id} className="beautyCard">
                         <img src={product.thumbnail} alt={product.title} />
                         <h3>{product.title}</h3>
                         <p>${product.price}</p>
@@ -39,7 +40,7 @@ const Beauty: React.FC = () => {
                         <div className="beautyButton">
                             <button>add to cart</button>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

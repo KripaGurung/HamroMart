@@ -1,6 +1,6 @@
 export const baseURL = "https://dummyjson.com";
-
 export const productURL = `${baseURL}/products`;
+export const productDetailsURL = `${baseURL}/products`;
 export const categoryListURL = `${baseURL}/products/category-list`;
 export const beautyURL = `${baseURL}/products/category/beauty`;
 export const electonicURL = `${baseURL}/products/category/smartphones`;
