@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {productDetailsURL} from "../../api";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import './Details.css';
 
 interface DetailsData {
@@ -15,6 +15,7 @@ interface DetailsData {
 }
 
 const Details: React.FC = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [ details, setDetails ] = useState<DetailsData[]>([]);
 
@@ -32,6 +33,7 @@ const Details: React.FC = () => {
 
     return(
         <div className="detailsContainer">
+            <div onClick={() => navigate(-1)} className="arrow">←</div>
             <div className="details">
                 {details.map((product) => (
                     <div key={product.id} className="detailsCard">
@@ -39,7 +41,7 @@ const Details: React.FC = () => {
                         <h3>{product.title}</h3>
                         <p>{product.category}</p>
                         <p>{product.description}</p>
-                        <p>{product.price}</p>
+                        <p>${product.price}</p>
 
                         <div className="detailsButton">
                             <button>add to cart</button>

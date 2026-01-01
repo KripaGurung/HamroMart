@@ -2,7 +2,6 @@
     width: 100%;
     max-width: 1200px;
     margin: 40px auto;
-    margin-top: 40px;
     padding: 0 20px;
 }
 
@@ -19,30 +18,28 @@
     gap: 50px;
 }
 
-.Link {
-    display: none;
-}
-
-.womenCard {
+.womenCardWrapper {
     background: #ffffff;
     border-radius: 12px;
-    overflow: hidden;
     padding: 15px;
     display: flex;
     flex-direction: column;
-    text-align: left;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-    height: 320px; 
-    text-decoration: none;
-    color: inherit;
+    transition: 0.3s ease-in-out;
+    height: 340px;
 }
 
-.womenCard:hover {
+.womenCardWrapper:hover {
     background: #f5f7ff;
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
+}
+
+.womenCard {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .womenCard img {
@@ -56,7 +53,6 @@
     font-size: 18px;
     margin: 10px 0 4px;
     color: #333;
-    text-decoration: none;
 }
 
 .womenCard p {
@@ -72,9 +68,6 @@
 }
 
 .womenButton button {
-    margin-top: auto;
-    display: flex;
-    justify-content: flex-end;
     padding: 10px 16px;
     background-color: #0d47a1;
     color: white;
@@ -83,7 +76,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    transition: background 0.3s, transform 0.2s;
+    transition: 0.3s;
 }
 
 .womenButton button:hover {
