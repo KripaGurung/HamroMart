@@ -2,6 +2,7 @@ import React, {useEffect, useState } from "react";
 import axios from "axios";
 import './Women.css';
 import {womenURL} from "../../api";
+import {Link} from 'react-router-dom';
 
 interface Product {
     id: number;
@@ -29,9 +30,9 @@ const Women: React.FC = () => {
     return (
         <div className="womenContainer">
             <h2>Women Wear</h2>
-            <div className="beauty">
+            <div className="women">
                 {women.map((product) => (
-                    <div key={product.id} className="womenCard">
+                    <Link to={`/product/${product.id}`} key={product.id} className="womenCard">
                         <img src={product.thumbnail} alt={product.title} />
                         <h3>{product.title}</h3>
                         <p>${product.price}</p>
@@ -40,7 +41,7 @@ const Women: React.FC = () => {
                             <button>add to cart</button>
                         </div>
 
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

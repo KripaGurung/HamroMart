@@ -3,6 +3,7 @@ import { FiFilter } from "react-icons/fi";
 import './product.css';
 import axios from "axios";
 import {productURL, categoryListURL} from "../../api";
+import {Link} from 'react-router-dom';
 
 interface ProductDataProp {
     id: number;
@@ -80,7 +81,7 @@ const Product: React.FC = () => {
                 <div className="products">
                     {filteredProduct && filteredProduct.length > 0 ? (
                         filteredProduct.map((product) => (
-                        <div key={product.id} className="productCard">
+                        <Link to={`/product/${product.id}`} key={product.id} className="productCard">
                             <img src={product.thumbnail} alt={product.title} />
                             <h3>{product.title}</h3>
                             <p>${product.price}</p>
@@ -88,7 +89,7 @@ const Product: React.FC = () => {
                             <div className="productButton">
                                 <button>add to cart</button>
                             </div>
-                        </div>
+                        </Link>
                         ))
                     ) : (
                     

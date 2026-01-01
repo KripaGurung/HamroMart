@@ -31,6 +31,8 @@
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     height: 320px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .menCard:hover {
@@ -50,6 +52,7 @@
     font-size: 18px;
     margin: 10px 0 4px;
     color: #333;
+    text-decoration: none;
 }
 
 .menCard p {
