@@ -8,5 +8,5 @@ export const menURL = `${baseURL}/products/category/mens-shirts`;
 export const womenURL = `${baseURL}/products/category/womens-dresses`;
 export const cartURL = `${baseURL}/carts/1`;
 export const cartDelURL = `${baseURL}/carts/1`;
-export const allUserURL = `${baseURL}//user/me`;
-export const userURL = `${baseURL}`;
+export const allUserURL = `${baseURL}/users`;
+export const userDelURL = `${baseURL}/users/1`;
