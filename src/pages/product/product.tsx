@@ -23,6 +23,7 @@ const Product: React.FC = () => {
     const [ filteredProduct, setFilteredProduct ] = useState<ProductDataProp[]>([]);
     const [ category, setcategory ] = useState<string[]>([]);
     const [ showCategory, setShowCategory ] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchproduct = async () => {
@@ -42,10 +43,14 @@ const Product: React.FC = () => {
                 setcategory(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchcategory();
-    }, [])
+    }, []);
+
+    if (loading) return <h2>Loading Products...</h2>;
     
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.toLowerCase();

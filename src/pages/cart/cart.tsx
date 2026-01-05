@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './cart.css';
-import {cartURL} from "../../api";
+import { GoTrash } from "react-icons/go";
+import "./cart.css";
+import { cartURL } from "../../api";
 
 interface CartProduct {
   id: number;
@@ -13,92 +14,94 @@ interface CartProduct {
 }
 
 interface CartData {
-  id: number;
   products: CartProduct[];
   total: number;
-  discountedTotal: number;
-  totalProducts: number;
-  totalQuantity: number;
 }
 
 const Cart: React.FC = () => {
-  const [cart, setCart] = useState<CartData | null>(null);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
+    const [cart, setCart] = useState<CartData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
         const fetchCart = async () => {
             try {
                 const response = await axios.get(cartURL);
                 setCart(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.log("Error fetching cart", error);
+            } catch (err) {
+                console.log(err);
+            } finally {
                 setLoading(false);
             }
         };
-
         fetchCart();
     }, []);
-    
-    if (loading) {
-        return 
-        <h2>Loading Cart...</h2>;
-    }
 
-    if (!cart) {
-        return 
-        <h2>No Cart Found</h2>;
-    }
+    if (loading) return <h2>Loading Cart...</h2>;
+    if (!cart) return <h2>No Cart Found</h2>;
+
+    const subtotal = cart.products.reduce((sum, item) => sum + item.total, 0);
+    const tax = subtotal * 0.1;
+    const grandTotal = subtotal + tax;
 
     const handleRemove = (id: number) => {
-        if (!cart) return;
-
-        const updatedProducts = cart.products.filter(item => item.id !== id);
-        setCart({
-            ...cart,
-            products: updatedProducts,
-            totalProducts: updatedProducts.length,
-            totalQuantity: updatedProducts.reduce((sum, item) => sum + item.quantity, 0),
-            total: updatedProducts.reduce((sum, item) => sum + item.total, 0),
-            discountedTotal: updatedProducts.reduce((sum, item) => sum + item.total, 0),
-        });
-
-        alert("Product deleted successfully!");
+        const updated = cart.products.filter(item => item.id !== id);
+        setCart({ ...cart, products: updated });
     };
-    
 
-  return (
-        <div className="cartContainer">
-            <h1>Your Cart</h1>
+    return (
+        <div className="cartPage">
+            <h1>Shopping Cart ({cart.products.length} items)</h1>
 
-            <div className="cartProducts">
-                {cart.products.map((item) => (
-                    <div key={item.id} className="cartCard">
-                        <img src={item.thumbnail} alt={item.title} />
-
-                        <div className="cartInfo">
-                            <h3>{item.title}</h3>
-                            <p>Price: ${item.price}</p>
-                            <p>Quantity: {item.quantity}</p>
-                            <p>Total: ${item.total}</p>
-                        </div>
-
-                        <div className="cartRemove">
-                            <button onClick={() => handleRemove(item.id)}>Remove</button>
-                        </div>
+            <div className="cartLayout">
+                <div className="cartList">
+                    <div className="cartListHeader">
+                        <p className="review">Review your items</p>
+                        <p className="clear" onClick={() => setCart({ ...cart, products: [] })}>Clear Cart</p>
                     </div>
-                ))}
-            </div>
 
-            <div className="cartSummary">
-                <h2>Cart Summary</h2>
-                <p>Total Products: {cart.totalProducts}</p>
-                <p>Total Quantity: {cart.totalQuantity}</p>
-                <p>Total Price: ${cart.total}</p>
-                <p>Discounted Total: ${cart.discountedTotal}</p>
+                    {cart.products.map(item => (
+                        <div key={item.id} className="cartItem">
+                            <img src={item.thumbnail} alt={item.title} />
 
-                <div className="summaryButton">
-                    <button>Checkout</button>
+                            <div className="itemDetails">
+                                <h3>{item.title}</h3>
+                                <p>${item.price} per unit</p>
+                            </div>
+
+                            <div className="qtyBox">
+                                <button>-</button>
+                                <span>{item.quantity}</span>
+                                <button>+</button>
+                            </div>
+                            
+                            <div className="itemTotal">${item.total}</div>
+
+                            <button className="deleteBtn" onClick={() => handleRemove(item.id)}><GoTrash /></button>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="orderSummary">
+                    <h2>Order Summary</h2>
+
+                    <div className="summaryRow">
+                        <span>Subtotal</span>
+                        <span>${subtotal.toFixed(2)}</span>
+                    </div>
+
+                    <div className="summaryRow">
+                        <span>Tax (10%)</span>
+                        <span>${tax.toFixed(2)}</span>
+                    </div>
+
+                    <hr />
+
+                    <div className="summaryRow total">
+                        <span>Total</span>
+                        <span>${grandTotal.toFixed(2)}</span>
+                    </div>
+
+                    <button className="checkoutBtn">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
