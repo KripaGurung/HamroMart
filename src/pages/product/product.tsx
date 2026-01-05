@@ -92,14 +92,15 @@ const Product: React.FC = () => {
                             </div>
                             <div className="productHeading">
                                 <h3>{product.title}</h3>
-                                <p>{product.description}</p>
+                                
+                                <div className="rating">
+                                    <FaStar />
+                                    <span className="ratingNumber">{product.rating}</span>
+                                </div>
                             </div>
-
-                            <div className="rating">
-                                <FaStar />
-                                <span className="ratingNumber">{product.rating}</span>
-                            </div>
-
+                            
+                            <p>{product.description}</p>
+                            
                             <div className="productButton">
                                 <p className="rate">${product.price}</p>
                                 <button>add to cart</button>

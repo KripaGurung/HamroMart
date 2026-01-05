@@ -47,10 +47,12 @@ const Details: React.FC = () => {
           <div className="detailsContent">
             <h3>{details.title}</h3>
 
-            <div className="rating">
-              <FaStar />
-              <span className="ratingNumber">{details.rating}</span>
-              
+            <div className="detailsInfo">
+              <div className="rating">
+                <FaStar />
+                <span className="ratingNumber">{details.rating}</span>
+              </div>
+
               <p className="category">{details.category}</p>
             </div>
 
