@@ -46,6 +46,22 @@
     color: white;
 }
 
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.rating svg {
+    color: gold;
+    font-size: 16px;
+}
+
+.ratingNumber {
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .categoryBox {
     position: absolute;
     top: 55px;
@@ -75,8 +91,8 @@
 
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 .productCard {
@@ -99,31 +115,36 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.productCard img {
+.productImg img {
     width: 100%;
-    height: 180px;
+    height: 350px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
 }
 
-.productCard h3 {
-    font-size: 16px;
+.productImg p {
+    color: white;
+    display: block;
+    border-radius: 8px;
+    width: 80px;
+    height: 20px;
+    background-color:#b4b5b6;
+    text-align: center;
+    margin: 10px 10px 10px;
+}
+
+.productHeading h3 {
+    font-size: 20px;
     margin: 10px 0 6px;
     text-decoration: none;
 }
 
-.productCard p {
-    font-size: 15px;
-    font-weight: bold;
-    color: #007bff;
-}
-
-.products p {
-    grid-column: 1 / -1;
-    text-align: center;
+.productHeading p {
     font-size: 18px;
-    color: #0078ff;
+    color:#747779;
+    margin: 8px 0 4px;
+    text-align: justify;
 }
 
 .productButton {

@@ -13,6 +13,7 @@ interface Product {
 
 const Beauty: React.FC = () => {
     const [beauty, setBeauty] = useState<Product[]>([]);
+    const [cart, setCart] = useState<number[]>([]);
 
     useEffect(() => {
         const fetchbeauty = async () => {
@@ -27,21 +28,32 @@ const Beauty: React.FC = () => {
         fetchbeauty();
     }, []);
 
+    const handleAddToCart = (e: React.MouseEvent, productId: number) => {
+        e.stopPropagation();
+        setCart(prev => [...prev, productId]);
+    };
+
     return (
         <div className="beautyContainer">
             <h2>Beauty</h2>
             <div className="beauty">
-                {beauty.map((product) => (
-                    <Link to={`/product/${product.id}`} key={product.id} className="beautyCard">
-                        <img src={product.thumbnail} alt={product.title} />
-                        <h3>{product.title}</h3>
-                        <p>${product.price}</p>
+                {beauty.map((product) => {
+                    const isInCart = cart.includes(product.id);
+                    return(
+                        <div key={product.id} className="beautyCardWrapper">
+                            <Link to={`/product/${product.id}`} key={product.id} className="beautyCard">
+                                <img src={product.thumbnail} alt={product.title} />
+                                <h3>{product.title}</h3>
+                                <p>${product.price}</p>
 
-                        <div className="beautyButton">
-                            <button>add to cart</button>
+                            </Link>
+
+                            <div className="beautyButton">
+                                <button onClick={(e) => handleAddToCart(e, product.id)} disabled={isInCart}>{isInCart ? 'Added to Cart' : 'Add to Cart'}</button>
+                            </div>
                         </div>
-                    </Link>
-                ))}
+                    )
+                })}
             </div>
         </div>
     )

@@ -19,17 +19,6 @@
     gap: 50px;
 }
 
-.electronicsCardWrapper {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: 0.3s ease-in-out;
-    height: 340px;
-}
-
 .electronicsCard {
     background: #ffffff;
     border-radius: 12px;

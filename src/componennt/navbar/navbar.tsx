@@ -9,7 +9,6 @@ const Navbar = () => {
             <div className="navbarBox">
                 <ul className="navLinks">
                     <li onClick={() => navigate("/home")}>Home</li>
-                    <li onClick={() => navigate("/products")}>Products</li>
                     <li onClick={() => navigate("/cart")}>Cart</li>
                 </ul>
             </div>

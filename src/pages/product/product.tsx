@@ -4,6 +4,8 @@ import './product.css';
 import axios from "axios";
 import {productURL, categoryListURL} from "../../api";
 import {Link} from 'react-router-dom';
+import { FaStar } from "react-icons/fa";
+
 
 interface ProductDataProp {
     id: number;
@@ -11,6 +13,8 @@ interface ProductDataProp {
     price: number;
     thumbnail: string;
     category: string;
+    rating: number;
+    description: string;
 }
 
 const Product: React.FC = () => {
@@ -24,7 +28,7 @@ const Product: React.FC = () => {
         const fetchproduct = async () => {
             try {
                 const response = await axios.get(productURL);
-                setProduct(response.data.products);
+                setProduct(response.data.products.slice(0, 4));
                 setFilteredProduct(response.data.products)
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -82,11 +86,22 @@ const Product: React.FC = () => {
                     {filteredProduct && filteredProduct.length > 0 ? (
                         filteredProduct.map((product) => (
                         <Link to={`/product/${product.id}`} key={product.id} className="productCard">
-                            <img src={product.thumbnail} alt={product.title} />
-                            <h3>{product.title}</h3>
-                            <p>${product.price}</p>
+                            <div className="productImg">
+                                <img src={product.thumbnail} alt={product.title} />
+                                <p>{product.category}</p>
+                            </div>
+                            <div className="productHeading">
+                                <h3>{product.title}</h3>
+                                <p>{product.description}</p>
+                            </div>
+
+                            <div className="rating">
+                                <FaStar />
+                                <span className="ratingNumber">{product.rating}</span>
+                            </div>
 
                             <div className="productButton">
+                                <p className="rate">${product.price}</p>
                                 <button>add to cart</button>
                             </div>
                         </Link>
