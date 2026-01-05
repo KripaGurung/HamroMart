@@ -34,8 +34,10 @@ const Login: React.FC = () => {
         {users.map((user) => (
           <div className="loginCard" key={user.id}>
                 <img src={user.image} alt={user.firstName} />
-                <h3>{user.firstName} {user.lastName}</h3>
-                <p>{user.email}</p>
+                <div className="loginDetails">
+                    <h3>{user.firstName} {user.lastName}</h3>
+                    <p>{user.email}</p>
+                </div>
             </div>
         ))}
       </div>
