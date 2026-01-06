@@ -1,19 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import "./navbar.css";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
+import "./Navbar.css";
 
 const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="navbarContainer">
-            <div className="navbarBox">
-                <ul className="navLinks">
-                    <li onClick={() => navigate("/home")}>Home</li>
-                    <li onClick={() => navigate("/cart")}>Cart</li>
-                </ul>
+        <nav className="navbar">
+            <h2 className="logo" onClick={() => navigate("/home")}>HamroMart</h2>
+
+            <div className="nav-right">
+                <div className="nav-item" onClick={() => navigate("/cart")}>
+                    <FaShoppingCart />
+                </div>
+
+                <div className="nav-item" onClick={() => navigate("/")}>
+                    <FaUser />
+                    <span>Login</span>
+                </div>
             </div>
-        </div>
-    )
-}
+        </nav>
+    );
+};
 
 export default Navbar;

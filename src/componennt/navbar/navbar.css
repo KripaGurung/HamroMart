@@ -1,45 +1,46 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.navbarContainer {
+.navbar {
   width: 100%;
-  background: #0d47a1;
-  padding: 14px 0;
+  height: 80px;
+  background: #ffffff;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  justify-content: space-between;
+  padding: 0 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.navbarBox {
-  width: 100%;
-  max-width: 1100px;
-}
-
-.navLinks {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin: 0;
-  padding: 0;
-}
-
-.navLinks li {
-  color: #ffffff;
-  font-size: 17px;
-  font-weight: 600;
+.logo {
+  color: #1e88e5;
   cursor: pointer;
-  transition: 0.3s ease;
-  padding: 8px 14px;
-  border-radius: 8px;
 }
 
-.navLinks li:hover {
-  background: rgba(255, 255, 255, 0.18);
-  transform: translateY(-2px);
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.nav-item:hover {
+  color: #1e88e5;
+}
+
+.nav-item svg {
+  font-size: 22px;
 }
