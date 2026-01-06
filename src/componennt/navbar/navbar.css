@@ -44,3 +44,31 @@
 .nav-item svg {
   font-size: 22px;
 }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-username {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.logout-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #444;
+}
+
+.logout-icon:hover {
+  color: red;
+}

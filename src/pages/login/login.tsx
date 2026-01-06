@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { allUserURL } from "../../api";
+import { AuthContext} from '../../context/AuthContext';
+import { useNavigate  } from 'react-router-dom';
 import "./Login.css";
 interface UserData {
   id: number;
@@ -12,6 +14,8 @@ interface UserData {
 
 const Login: React.FC = () => {
   const [users, setUsers] = useState<UserData[]>([]);
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -22,9 +26,15 @@ const Login: React.FC = () => {
         console.error("Failed to fetch users", error);
       }
     };
-
+ 
     fetchUsers();
   }, []);
+
+  const handleLogin = (user: UserData) => {
+    authContext?.login(user);
+    console.log("User logged in from Login page: ",user);
+    navigate('/home')
+  }
 
   return (
     <div className="loginContainer">
@@ -32,7 +42,7 @@ const Login: React.FC = () => {
 
       <div className="loginGrid">
         {users.map((user) => (
-          <div className="loginCard" key={user.id}>
+          <div className="loginCard" key={user.id} onClick = {() => handleLogin(user)}>
                 <img src={user.image} alt={user.firstName} />
                 <div className="loginDetails">
                     <h3>{user.firstName} {user.lastName}</h3>
