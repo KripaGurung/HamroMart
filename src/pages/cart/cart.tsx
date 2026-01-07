@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/useAuth";
 import { GoTrash } from "react-icons/go";
 import { getCartURL } from "../../api";
-
 import "./cart.css";
 import axios from "axios";
 
