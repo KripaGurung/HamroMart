@@ -61,95 +61,84 @@ const Product: React.FC = () => {
         setSearchText(value);
         
         const filtered = product.filter(product =>
-      product.title.toLowerCase().includes(value)
-    );
-    setFilteredProduct(filtered);
-  };
-  const handleCategory = (categoryName: string) => {
-    const filtered = product.filter(product => product.category === categoryName);
-    setFilteredProduct(filtered);
-    setShowCategory(false);
-  };
-  const handleAddToCart = (id: number) => {
-    if (!addedProducts.includes(id)) {
-      setAddedProducts([...addedProducts, id]);
-    }
-  };
+            product.title.toLowerCase().includes(value)
+        );
+        
+        setFilteredProduct(filtered);
+    };
+    
+    const handleCategory = (categoryName: string) => {
+        const filtered = product.filter(product => product.category === categoryName);
+        setFilteredProduct(filtered);
+        setShowCategory(false);
+    };
+    
+    const handleAddToCart = (id: number) => {
+        if (!addedProducts.includes(id)) {
+            setAddedProducts([...addedProducts, id]);
+        }
+    };
+    
+    return (
+        <div className="productContainer">
 
-  return (
-    <div className="productContainer">
-      <div className="searchFilter">
-        <div className="search">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchText}
-            onChange={handleSearch}
-          />
-        </div>
+            <div className="searchFilter">
 
-        <div className="Filter">
-          <button onClick={() => setShowCategory(!showCategory)}>
-            <FiFilter size={20} /> Filter
-          </button>
-
-          {showCategory && (
-            <div className="categoryBox">
-              {category.map((cat, index) => (
-                <p
-                  key={index}
-                  className="categoryItem"
-                  onClick={() => handleCategory(cat)}
-                >
-                  {cat}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="productList">
-        <div className="products">
-          {filteredProduct.length > 0 ? (
-            filteredProduct.map(p => (
-              <div key={p.id} className="productCard">
-                <Link to={`/product/${p.id}`} className="productImgLink">
-                  <div className="productImg">
-                    <img src={p.thumbnail} alt={p.title} />
-                    <p>{p.category}</p>
-                  </div>
-                  <div className="productHeading">
-                    <h3>{p.title}</h3>
-                    <div className="rating">
-                      <FaStar />
-                      <span className="ratingNumber">{p.rating}</span>
-                    </div>
-                  </div>
-                </Link>
-
-                <p>{p.description}</p>
-
-                <div className="productButton">
-                  <p className="rate">${p.price}</p>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleAddToCart(p.id);
-                    }}
-                    disabled={addedProducts.includes(p.id)}
-                  >
-                    {addedProducts.includes(p.id) ? "Added to Cart" : "Add to Cart"}
-                  </button>
+                <div className="search">
+                    <input type="text" placeholder="Search..." value={searchText} onChange={handleSearch} />
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No products found.</p>
-          )}
+                
+                <div className="Filter"> 
+                    <button onClick={() => setShowCategory(!showCategory)}> <FiFilter size={20} /> Filter </button>
+                    
+                    {showCategory && (
+                        <div className="categoryBox">
+                            {category.map((category, index) => (
+                                <p key={index} className="categoryItem" onClick={() => handleCategory(category)} > {category} </p>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+      
+            <div className="productList">
+                <div className="products">
+                    {filteredProduct.length > 0 ? (
+                        filteredProduct.map(product => (
+                            <div key={product.id} className="productCard">
+                                
+                                <Link to={`/product/${product.id}`} className="productImgLink">
+                                
+                                    <div className="productImg">
+                                        <img src={product.thumbnail} alt={product.title} />
+                                        <p>{product.category}</p>
+                                    </div>
+                                
+                                    <div className="productHeading">
+                                        <h3>{product.title}</h3>
+                                    
+                                        <div className="rating">
+                                            <FaStar />
+                                            <span className="ratingNumber">{product.rating}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <p>{product.description}</p>
+
+                                <div className="productButton">
+                                    <p className="rate">${product.price}</p>
+                                    <button onClick={(e) => {e.preventDefault();handleAddToCart(product.id);}} disabled={addedProducts.includes(product.id)}> {addedProducts.includes(product.id) ? "Added to Cart" : "Add to Cart"} </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                    <p>No products found.</p>
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Product;
