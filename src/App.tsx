@@ -11,6 +11,7 @@ import Cart from "./pages/cart/cart";
 import Details from "./pages/details/Details";
 import Profile from "./pages/profile/profile";
 import AuthProvider from "./context/AuthProvider";
+import CartProvider from "./context/cart/CartProvider";
 
 
 function AppContent() {
@@ -21,6 +22,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      <CartProvider>
       <AuthProvider>
       {showPath && <Navbar />}
 
@@ -39,6 +41,7 @@ function AppContent() {
 
       {showPath && <Footer />}
       </AuthProvider>
+      </CartProvider>
     </div>
   );
 }

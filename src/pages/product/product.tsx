@@ -3,10 +3,11 @@ import { FiFilter } from "react-icons/fi";
 import { productURL, categoryListURL } from "../../api";
 import { Link } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
+import useCart from '../../context/cart/useCart';
 import './product.css';
 import axios from "axios";
 
-interface ProductDataProp {
+export interface ProductDataProp {
     id: number;
     title: string;
     price: number;
@@ -17,6 +18,7 @@ interface ProductDataProp {
 }
 
 const Product: React.FC = () => {
+    const { addToCart } = useCart();
     const [product, setProduct] = useState<ProductDataProp[]>([]);
     const [filteredProduct, setFilteredProduct] = useState<ProductDataProp[]>([]);
     const [searchText, setSearchText] = useState('');
@@ -73,9 +75,11 @@ const Product: React.FC = () => {
         setShowCategory(false);
     };
     
-    const handleAddToCart = (id: number) => {
-        if (!addedProducts.includes(id)) {
-            setAddedProducts([...addedProducts, id]);
+    const handleAddToCart = (product: ProductDataProp) => {
+        addToCart(product);
+
+        if (!addedProducts.includes(product.id)) {
+            setAddedProducts([...addedProducts, product.id]);
         }
     };
     
@@ -128,7 +132,7 @@ const Product: React.FC = () => {
 
                                 <div className="productButton">
                                     <p className="rate">${product.price}</p>
-                                    <button onClick={(e) => {e.preventDefault();handleAddToCart(product.id);}} disabled={addedProducts.includes(product.id)}> {addedProducts.includes(product.id) ? "Added to Cart" : "Add to Cart"} </button>
+                                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product); }}disabled={addedProducts.includes(product.id)}> {addedProducts.includes(product.id) ? "Added to Cart" : "Add to Cart"} </button>
                                 </div>
                             </div>
                         ))

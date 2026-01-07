@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/useAuth";
 import { GoTrash } from "react-icons/go";
 import { getCartURL } from "../../api";
+import useCart from "../../context/cart/useCart";
 import "./cart.css";
 import axios from "axios";
 
@@ -23,6 +24,8 @@ const Cart: React.FC = () => {
     const { user } = useAuth();
     const [cart, setCart] = useState<CartData>({ products: [], total: 0 });
     const [loading, setLoading] = useState(true);
+    const { cartItems, increaseQty, decreaseQty, removeItem, clearCart } = useCart();
+
 
     useEffect(() => {
         if (!user) return;
@@ -44,56 +47,25 @@ const Cart: React.FC = () => {
     if (loading) return <h2>Loading Cart...</h2>;
     if (!cart) return <h2>No Cart Found</h2>;
     
-    const subtotal = cart?.products?.reduce((sum, item) => sum + item.total, 0) || 0;
+    const subtotal = cartItems.reduce((sum, item) => sum + item.total, 0);
     const tax = subtotal * 0.1;
     const grandTotal = subtotal + tax;
-
-    const handleRemove = (id: number) => {
-        const updated = cart?.products?.filter(item => item.id !== id);
-        setCart({ ...cart, products: updated });
-    };
-
-    const handleIncrease = (id: number) => {
-        const updated = cart?.products?.map(item =>
-            item.id === id
-            ? {
-                ...item,
-                quantity: item.quantity + 1,
-                total: (item.quantity + 1) * item.price,
-            }
-            : item
-        );
-        setCart({ ...cart, products: updated });
-    };
-
-    const handleDecrease = (id: number) => {
-        const updated = cart?.products?.map(item =>
-            item.id === id && item.quantity > 1
-            ? {
-                ...item,
-                quantity: item.quantity - 1,
-                total: (item.quantity - 1) * item.price,
-            }
-            : item
-        );
-        setCart({ ...cart, products: updated });
-    };
-
+    
     const handleCheckout = () => {
         console.log("-- CHECKOUT RECEIPT --");
-        
-        cart.products.forEach(item => {
-            console.log(`${item.title} | Price: $${item.price} | Qty: ${item.quantity} | Total: $${item.total}`);
-        });
+        cartItems.forEach(item => {
+        console.log(`${item.title} | Price: $${item.price} | Qty: ${item.quantity} | Total: $${item.total}`);
+    });
+    
+    console.log("----------------------------");
+    console.log("Subtotal:", subtotal);
+    console.log("Tax (10%):", tax);
+    console.log("Grand Total:", grandTotal);
+    console.log("----------------------------");
 
-        console.log("----------------------------");
-        console.log("Subtotal:", subtotal);
-        console.log("Tax (10%):", tax);
-        console.log("Grand Total:", grandTotal);
-        console.log("============================");
-
-        setCart({ products: [], total: 0 });
+    clearCart();
     };
+
     
     return (
         <div className="cartPage">
@@ -107,26 +79,18 @@ const Cart: React.FC = () => {
                         <p className="clear"onClick={() => setCart({ ...cart, products: [] })}>Clear Cart</p>
                     </div>
 
-                    {cart?.products?.map(item => (
+                    {cartItems.map(item => (
                         <div key={item.id} className="cartItem">
-                            <img src={item.thumbnail} alt={item.title} />
-
-                            <div className="itemDetails">
-                                <h3>{item.title}</h3>
-                                <p>${item.price} per unit</p>
-                            </div>
-
-                            <div className="qtyBox">
-                                <button onClick={() => handleDecrease(item.id)}>-</button>
-                                <span>{item.quantity}</span>
-                                <button onClick={() => handleIncrease(item.id)}>+</button>
-                            </div>
-                            
-                            <div className="itemTotal">${item.total}</div>
-
-                            <button className="deleteBtn" onClick={() => handleRemove(item.id)}> <GoTrash /> </button>
+                            <img src={item.thumbnail} />
+                            <h3>{item.title}</h3>
+                            <button onClick={() => decreaseQty(item.id)}>-</button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => increaseQty(item.id)}>+</button>
+                            <p>${item.total}</p>
+                            <button onClick={() => removeItem(item.id)}> <GoTrash /> </button>
                         </div>
                     ))}
+
                 </div>
 
                 <div className="orderSummary">
