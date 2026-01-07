@@ -21,12 +21,12 @@ function AppContent() {
 
   return (
     <div className="app">
+      <AuthProvider>
       {showPath && <Navbar />}
 
       <ToastContainer position="top-center" autoClose={2000} />
 
       <div className="content">
-        <AuthProvider>
           <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
@@ -35,12 +35,10 @@ function AppContent() {
           <Route path="/product/:id" element={<Details />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
-        </AuthProvider>
-        
       </div>
 
       {showPath && <Footer />}
-
+      </AuthProvider>
     </div>
   );
 }

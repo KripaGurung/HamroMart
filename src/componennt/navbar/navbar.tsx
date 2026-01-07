@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import { GoSignOut } from "react-icons/go";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
@@ -17,27 +19,26 @@ const Navbar: React.FC = () => {
     };
 
     return (
-        <nav className="navbar">
+        <nav className="navBar">
             <h2 className="logo" onClick={() => navigate("/home")}>HamroMart</h2>
 
-            <div className="nav-right">
-                <div className="nav-item" onClick={() => navigate("/cart")}>
-                    <FaShoppingCart />
+            <div className="navRight">
+                <div className="navItem" onClick={() => navigate("/cart")}>
+                    <FiShoppingCart />
                 </div>
 
                 {user ? (
-                    <div className="nav-user">
+                    <div className="navUser">
                         {user.image && (
-                            <img src={user.image} alt={user.firstName} className="nav-avatar" />
+                            <img src={user.image} alt={user.firstName} className="navAvatar" />
                         )}
 
-                        <span className="nav-username">{user.firstName} {user.lastName}</span>
-                        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-
+                        <span className="navUsername">{user.firstName} {user.lastName}</span>
+                        <div className="logoutBtn" onClick={handleLogout}> <GoSignOut /> </div>
                     </div>
 
                 ) : (
-                    <div className="nav-item" onClick={() => navigate("/")}>
+                    <div className="navItem" onClick={() => navigate("/")}>
                         <FaUser />
                         <span>Login</span>
                     </div>
