@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useAuth } from "../../context/useAuth";
 import { GoTrash } from "react-icons/go";
+import { getCartURL } from "../../api";
+
 import "./cart.css";
-import { cartURL } from "../../api";
+import axios from "axios";
 
 interface CartProduct {
   id: number;
@@ -19,27 +21,31 @@ interface CartData {
 }
 
 const Cart: React.FC = () => {
-    const [cart, setCart] = useState<CartData | null>(null);
+    const { user } = useAuth();
+    const [cart, setCart] = useState<CartData>({ products: [], total: 0 });
     const [loading, setLoading] = useState(true);
-
+    
     useEffect(() => {
+        if (!user) return;
+        
         const fetchCart = async () => {
             try {
-                const response = await axios.get(cartURL);
+                const response = await axios.get(getCartURL(user.id));
                 setCart(response.data);
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.log(error);
             } finally {
                 setLoading(false);
             }
         };
         fetchCart();
-    }, []);
+    }, [user]);
+
 
     if (loading) return <h2>Loading Cart...</h2>;
     if (!cart) return <h2>No Cart Found</h2>;
 
-    const subtotal = cart.products.reduce((sum, item) => sum + item.total, 0);
+    const subtotal = cart?.products?.reduce((sum, item) => sum + item.total, 0) || 0;
     const tax = subtotal * 0.1;
     const grandTotal = subtotal + tax;
 
@@ -50,7 +56,7 @@ const Cart: React.FC = () => {
 
     return (
         <div className="cartPage">
-            <h1>Shopping Cart ({cart.products.length} items)</h1>
+            <h1>Shopping Cart ({cart?.products?.length} items)</h1>
 
             <div className="cartLayout">
                 <div className="cartList">
@@ -59,7 +65,7 @@ const Cart: React.FC = () => {
                         <p className="clear" onClick={() => setCart({ ...cart, products: [] })}>Clear Cart</p>
                     </div>
 
-                    {cart.products.map(item => (
+                    {cart?.products?.map(item => (
                         <div key={item.id} className="cartItem">
                             <img src={item.thumbnail} alt={item.title} />
 
