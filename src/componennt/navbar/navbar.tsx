@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
     const authContext = useContext(AuthContext);
     const user = authContext?.user;
     const { cartItems } = useCart();
-    
+
     const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     console.log("User logged-in from Navbar:", user);
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
                 </div>
 
                 {user ? (
-                    <div className="navUser">
+                    <div className="navUser" onClick={() => navigate("/profile")}>
                         {user.image && (
                             <img src={user.image} alt={user.firstName} className="navAvatar" />
                         )}

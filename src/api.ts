@@ -5,5 +5,5 @@ export const categoryListURL = `${baseURL}/products/category-list`;
 export const getCartURL = (userId: number) => `${baseURL}/carts/user/${userId}`;
 export const getCartDelURL = (cartId: number) => `${baseURL}/carts/${cartId}`;
 export const allUserURL = `${baseURL}/users`;
-export const userDelURL = `${baseURL}/users/1`;
+export const userDelURL = `${baseURL}/users`;
 export const allCartURL = `${baseURL}/carts`;
