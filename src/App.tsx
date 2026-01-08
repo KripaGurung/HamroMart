@@ -22,26 +22,26 @@ function AppContent() {
 
   return (
     <div className="app">
-      <CartProvider>
       <AuthProvider>
-      {showPath && <Navbar />}
-
-      <ToastContainer position="top-center" autoClose={2000} />
-
-      <div className="content">
-          <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/products" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:id" element={<Details />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </div>
-
-      {showPath && <Footer />}
+        <CartProvider>
+          {showPath && <Navbar />}
+          
+          <ToastContainer position="top-center" autoClose={2000} />
+          
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/products" element={<Product />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/product/:id" element={<Details />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </div>
+          
+          {showPath && <Footer />}
+        </CartProvider>
       </AuthProvider>
-      </CartProvider>
     </div>
   );
 }
@@ -49,9 +49,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <CartProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

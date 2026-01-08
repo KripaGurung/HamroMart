@@ -1,52 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useCart from "../../context/cart/useCart";
 import { useAuth } from "../../context/useAuth";
 import { GoTrash } from "react-icons/go";
-import { getCartURL } from "../../api";
-import useCart from "../../context/cart/useCart";
 import "./cart.css";
-import axios from "axios";
-
-interface CartProduct {
-  id: number;
-  title: string;
-  price: number;
-  quantity: number;
-  total: number;
-  thumbnail: string;
-}
-
-interface CartData {
-  products: CartProduct[];
-  total: number;
-}
 
 const Cart: React.FC = () => {
     const { user } = useAuth();
-    const [cart, setCart] = useState<CartData>({ products: [], total: 0 });
-    const [loading, setLoading] = useState(true);
     const { cartItems, increaseQty, decreaseQty, removeItem, clearCart } = useCart();
-
-
-    useEffect(() => {
-        if (!user) return;
-        
-        const fetchCart = async () => {
-            try {
-                const response = await axios.get(getCartURL(user.id));
-                console.log("Product that are added to Cart: ", response.data);
-                setCart(response.data);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchCart();
-    }, [user]);
-
-    if (loading) return <h2>Loading Cart...</h2>;
-    if (!cart) return <h2>No Cart Found</h2>;
     
+    if (!user) return <h2>Please login first!</h2>;
+
     const subtotal = cartItems.reduce((sum, item) => sum + item.total, 0);
     const tax = subtotal * 0.1;
     const grandTotal = subtotal + tax;
@@ -54,70 +17,55 @@ const Cart: React.FC = () => {
     const handleCheckout = () => {
         console.log("-- CHECKOUT RECEIPT --");
         cartItems.forEach(item => {
-        console.log(`${item.title} | Price: $${item.price} | Qty: ${item.quantity} | Total: $${item.total}`);
-    });
-    
-    console.log("----------------------------");
-    console.log("Subtotal:", subtotal);
-    console.log("Tax (10%):", tax);
-    console.log("Grand Total:", grandTotal);
-    console.log("----------------------------");
-
-    clearCart();
+            console.log(`${item.title} | Price: $${item.price} | Qty: ${item.quantity} | Total: $${item.total}`);
+        });
+        
+        console.log("Subtotal:", subtotal);
+        console.log("Tax:", tax);
+        console.log("Grand Total:", grandTotal);
+        
+        clearCart();
     };
-
     
     return (
         <div className="cartPage">
-            <h1>{user?.firstName}'s Cart ({cart?.products?.length} items)</h1>
+            <h1>{user.firstName}'s Cart ({cartItems.length} items)</h1>
 
             <div className="cartLayout">
                 <div className="cartList">
 
-                    <div className="cartListHeader">
-                        <p className="review">Review your items</p>
-                        <p className="clear"onClick={() => setCart({ ...cart, products: [] })}>Clear Cart</p>
-                    </div>
-
-                    {cartItems.map(item => (
-                        <div key={item.id} className="cartItem">
-                            <img src={item.thumbnail} />
-                            <h3>{item.title}</h3>
-                            <button onClick={() => decreaseQty(item.id)}>-</button>
-                            <span>{item.quantity}</span>
-                            <button onClick={() => increaseQty(item.id)}>+</button>
-                            <p>${item.total}</p>
-                            <button onClick={() => removeItem(item.id)}> <GoTrash /> </button>
-                        </div>
-                    ))}
-
+                <div className="cartListHeader">
+                    <p className="review">Review your items</p>
+                    <p className="clear" onClick={clearCart}>Clear Cart</p>
                 </div>
 
-                <div className="orderSummary">
-                    <h2>Order Summary</h2>
-
-                    <div className="summaryRow">
-                        <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
-                    </div>
-
-                    <div className="summaryRow">
-                        <span>Tax (10%)</span>
-                        <span>${tax.toFixed(2)}</span>
-                    </div>
-
-                    <hr />
-
-                    <div className="summaryRow total">
-                        <span>Total</span>
-                        <span>${grandTotal.toFixed(2)}</span>
-                    </div>
-
-                    <button className="checkoutBtn" onClick={handleCheckout}> Proceed to Checkout </button>
+                {cartItems.map(item => (
+                    <div key={item.id} className="cartItem">
+                    <img src={item.thumbnail} />
+                    <h3>{item.title}</h3>
+                    <button onClick={() => decreaseQty(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => increaseQty(item.id)}>+</button>
+                    <p>${item.total}</p>
+                    <button onClick={() => removeItem(item.id)}> <GoTrash /> </button>
                 </div>
+            ))}
+            </div>
+            
+            <div className="orderSummary">
+                <h2>Order Summary</h2>
+                <p>Subtotal: ${subtotal.toFixed(2)}</p>
+                <p>Tax (10%): ${tax.toFixed(2)}</p>
+
+                <hr />
+                
+                <h3>Total: ${grandTotal.toFixed(2)}</h3>
+
+                <button className="checkoutBtn" onClick={handleCheckout}>Checkout</button>
             </div>
         </div>
-    );
+    </div>
+  );
 };
 
 export default Cart;
