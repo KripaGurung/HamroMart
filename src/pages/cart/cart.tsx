@@ -17,7 +17,11 @@ const Cart: React.FC = () => {
     const handleCheckout = () => {
         console.log("-- CHECKOUT RECEIPT --");
         cartItems.forEach(item => {
-            console.log(`${item.title} | Price: $${item.price} | Qty: ${item.quantity} | Total: $${item.total}`);
+            console.log(`
+                Name:${item.title} | 
+                Price: $${item.price} | 
+                Quantity: ${item.quantity} | 
+                Total: $${item.total}`);
         });
         
         console.log("Subtotal:", subtotal);
