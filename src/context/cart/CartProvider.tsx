@@ -6,22 +6,34 @@ import { useAuth } from "../useAuth";
 
 const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
-  const [cartByUser, setCartByUser] = useState<{[key: number]: CartItem[];}>({});
-  const cartItems: CartItem[] = user ? cartByUser[user.id] || [] : [];
-  
+
+  const [cartByUser, setCartByUser] = useState<{
+    [key: number]: CartItem[];
+  }>({});
+
+  const cartItems = user ? cartByUser[user.id] || [] : [];
+
   const addToCart = (product: ProductDataProp) => {
     if (!user) return;
-    
+
     const userCart = cartByUser[user.id] || [];
-    const existingItem = userCart.find((item: CartItem) => item.id === product.id);
+    const existingItem = userCart.find(item => item.id === product.id);
 
     let updatedCart: CartItem[];
-    
+
     if (existingItem) {
-      updatedCart = userCart.map((item: CartItem) =>
-        item.id === product.id ? {...item, quantity: item.quantity + 1, total: (item.quantity + 1) * item.price,} : item );
+      updatedCart = userCart.map(item =>
+        item.id === product.id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              total: (item.quantity + 1) * item.price,
+            }
+          : item
+      );
     } else {
-      updatedCart = [...userCart,
+      updatedCart = [
+        ...userCart,
         {
           id: product.id,
           title: product.title,
@@ -42,9 +54,7 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const increaseQty = (id: number) => {
     if (!user) return;
 
-    const userCart = cartByUser[user.id] || [];
-
-    const updatedCart = userCart.map((item: CartItem) =>
+    const updatedCart = cartItems.map(item =>
       item.id === id
         ? {
             ...item,
@@ -54,18 +64,13 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         : item
     );
 
-    setCartByUser({
-      ...cartByUser,
-      [user.id]: updatedCart,
-    });
+    setCartByUser({ ...cartByUser, [user.id]: updatedCart });
   };
 
   const decreaseQty = (id: number) => {
     if (!user) return;
 
-    const userCart = cartByUser[user.id] || [];
-
-    const updatedCart = userCart.map((item: CartItem) =>
+    const updatedCart = cartItems.map(item =>
       item.id === id && item.quantity > 1
         ? {
             ...item,
@@ -75,23 +80,15 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         : item
     );
 
-    setCartByUser({
-      ...cartByUser,
-      [user.id]: updatedCart,
-    });
+    setCartByUser({ ...cartByUser, [user.id]: updatedCart });
   };
 
   const removeItem = (id: number) => {
     if (!user) return;
 
-    const userCart = cartByUser[user.id] || [];
-    const updatedCart = userCart.filter(
-      (item: CartItem) => item.id !== id
-    );
-
     setCartByUser({
       ...cartByUser,
-      [user.id]: updatedCart,
+      [user.id]: cartItems.filter(item => item.id !== id),
     });
   };
 
