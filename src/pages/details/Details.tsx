@@ -4,6 +4,8 @@ import { productDetailsURL } from "../../api";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Details.css";
 import { FaStar } from "react-icons/fa";
+import useCart from "../../context/cart/useCart";
+import { useAuth } from "../../context/useAuth";
 
 interface DetailsData {
   id: number;
@@ -20,6 +22,11 @@ const Details: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [details, setDetails] = useState<DetailsData | null>(null);
+  const { user } = useAuth();
+  const { addToCart } = useCart();
+  const { cartItems } = useCart();
+
+  const isInCart = details? cartItems.some(item => item.id === details.id) : false;
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -35,6 +42,16 @@ const Details: React.FC = () => {
   }, [id]);
 
   if (!details) return null;
+ 
+  const handleAddToCart = () => {
+  if (!user) {
+    alert("Please login first to add products to cart");
+    return;
+  }
+
+  addToCart(details);
+};
+
 
   return (
     <div className="detailsContainer">
@@ -60,7 +77,8 @@ const Details: React.FC = () => {
 
             <div className="detailsButton">
               <p className="price">${details.price}</p>
-              <button>add to cart</button>
+              <button disabled={isInCart} onClick={handleAddToCart} > {isInCart ? "Added to Cart" : "Add to Cart"} </button>
+
             </div>
           </div>
         </div>
