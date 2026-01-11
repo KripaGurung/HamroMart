@@ -52,12 +52,18 @@ const Product: React.FC = () => {
         if (searchText.trim()) {
             const value = searchText.toLowerCase();
             filtered = filtered.filter( product => product.title.toLowerCase().includes(value) || product.category.toLowerCase().includes(value));
+
+            console.log("searchText:", searchText);
+            console.log("filtered search:", filtered);
         }
 
         if (selectedCategory) {
             filtered = filtered.filter(
                 product => product.category === selectedCategory
             );
+
+            console.log( "selectedCategory:",selectedCategory);
+            console.log("filtered category:", filtered);
         }
         
         return filtered;
