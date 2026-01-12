@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CartContext } from "./CartContext";
 import type { CartItem } from "./CartContext";
 import type { ProductDataProp } from "../../pages/product/product";
-import { useAuth } from "../useAuth";
+import { useAuth } from "../auth/useAuth";
 
 const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();

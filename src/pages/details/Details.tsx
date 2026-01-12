@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./Details.css";
 import { FaStar } from "react-icons/fa";
 import useCart from "../../context/cart/useCart";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../context/auth/useAuth";
 
 interface DetailsData {
   id: number;

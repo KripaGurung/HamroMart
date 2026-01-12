@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { allUserURL } from "../../api";
-import { AuthContext} from '../../context/AuthContext';
+import { AuthContext} from '../../context/auth/AuthContext';
 import { useNavigate  } from 'react-router-dom';
 import "./Login.css";
 interface UserData {

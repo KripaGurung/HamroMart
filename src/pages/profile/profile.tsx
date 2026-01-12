@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { userDelURL } from "../../api";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../context/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 

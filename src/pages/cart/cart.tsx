@@ -1,6 +1,6 @@
 import React from "react";
 import useCart from "../../context/cart/useCart";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../context/auth/useAuth";
 import { GoTrash } from "react-icons/go";
 import "./cart.css";
 

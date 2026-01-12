@@ -3,7 +3,7 @@ import { FiFilter, FiSearch } from "react-icons/fi";
 import { productURL, categoryListURL } from "../../api";
 import { Link } from "react-router-dom";
 import useCart from "../../context/cart/useCart";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../context/auth/useAuth";
 import { FaStar } from "react-icons/fa";
 import "./product.css";
 import axios from "axios";
