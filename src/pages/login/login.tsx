@@ -21,6 +21,7 @@ const Login: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(allUserURL);
+        console.log("Users: ", response.data.users);
         setUsers(response.data.users);
       } catch (error) {
         console.error("Failed to fetch users", error);
@@ -28,8 +29,7 @@ const Login: React.FC = () => {
     };
  
     fetchUsers();
-    console.log("Fetched Users: ", users);
-  }, [users]);
+  }, []);
 
   const handleLogin = (user: UserData) => {
     authContext?.login(user);
