@@ -75,23 +75,13 @@ const Profile: React.FC = () => {
       <div className="profileCard">
         <div className="profileHeader"></div>
 
-        <img
-          src={user.image}
-          alt="profile"
-          className="profileImg"
-        />
+        <img src={user.image} alt="profile" className="profileImg"/>
 
-        <h2>
-          {user.firstName} {user.lastName}
-        </h2>
+        <h2> {user.firstName} {user.lastName} </h2>
 
-        <p className="job">
-          {user.company.title} at {user.company.name}
-        </p>
+        <p className="job"> {user.company.title} at {user.company.name} </p>
 
-        <span className="memberId">
-          Member ID #{user.id}
-        </span>
+        <span className="memberId"> Member ID #{user.id} </span>
 
         <div className="infoSection">
           <div className="infoBox">
@@ -103,10 +93,8 @@ const Profile: React.FC = () => {
           <div className="infoBox">
             <h4>Address</h4>
             <p>{user.address.address}</p>
-            <p>
-              {user.address.city}, {user.address.state}
-            </p>
-            <p>{user.address.postalCode}</p>
+            <p> {user.address.city}, {user.address.state} </p>
+            <p> {user.address.postalCode} </p>
           </div>
         </div>
       </div>
