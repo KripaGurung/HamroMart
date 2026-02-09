@@ -28,11 +28,12 @@ const Login: React.FC = () => {
     };
  
     fetchUsers();
-  }, []);
+    console.log("Fetched Users: ", users);
+  }, [users]);
 
   const handleLogin = (user: UserData) => {
     authContext?.login(user);
-    console.log("User logged in from Login page: ",user);
+    console.log("Logged User: ",user);
     navigate('/home')
   }
 

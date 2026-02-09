@@ -19,4 +19,6 @@ export interface CartContextType {
   clearCart: () => void;
 }
 
+console.log("CartContext created");
+
 export const CartContext = createContext<CartContextType | null>(null);

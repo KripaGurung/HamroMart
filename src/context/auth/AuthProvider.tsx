@@ -14,11 +14,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   const login = (userData: User) => {
     setUser(userData);
-    console.log("User logged in from AuthProvider: ",userData);
+    console.log("User in AuthProvider:", userData);
   };
 
   const logout = () => {
     setUser(null);
+    console.log("User cleared");
   };
 
   return (

@@ -8,51 +8,44 @@ import useCart from "../../context/cart/useCart";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
-    const navigate = useNavigate();
-    const authContext = useContext(AuthContext);
-    const user = authContext?.user;
-    const { cartItems } = useCart();
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+  const user = authContext?.user;
+  const { cartItems } = useCart();
 
-    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  console.log("Navbar cart count:", cartCount);
 
-    console.log("User logged-in from Navbar:", user);
+  const handleLogout = () => {
+    authContext?.logout();
+    navigate("/");
+  }
 
-    const handleLogout = () => {
-        authContext?.logout();
-        navigate("/");
-    };
+  return (
+    <nav className="navBar">
+      <h2 className="logo" onClick={() => {navigate("/home")}}> HamroMart </h2>
 
-    return (
-        <nav className="navBar">
-            <h2 className="logo" onClick={() => navigate("/home")}>HamroMart</h2>
+      <div className="navRight">
+        <div className="navItem" onClick={() => {navigate("/cart")}}>
+          <FiShoppingCart />
+          {cartCount > 0 && ( <span className="cartCount">{cartCount}</span> )}
+        </div>
 
-            <div className="navRight">
-                <div className="navItem" onClick={() => navigate("/cart")}>
-                    <FiShoppingCart />
-                    {cartCount > 0 && (
-                        <span className="cartCount">{cartCount}</span>
-                    )}
-                </div>
+        {user ? (
+          <div className="navUser" onClick={() => {navigate("/profile") }}>
+            {user.image && (
+              <img src={user.image} alt={user.firstName} className="navAvatar"/> )}
 
-                {user ? (
-                    <div className="navUser" onClick={() => navigate("/profile")}>
-                        {user.image && (
-                            <img src={user.image} alt={user.firstName} className="navAvatar" />
-                        )}
+            <span className="navUsername"> {user.firstName} {user.lastName} </span>
 
-                        <span className="navUsername">{user.firstName} {user.lastName}</span>
-                        <div className="logoutBtn" onClick={handleLogout}> <GoSignOut /> </div>
-                    </div>
-
-                ) : (
-                    <div className="navItem" onClick={() => navigate("/")}>
-                        <FaUser />
-                        <span>Login</span>
-                    </div>
-                )}
-            </div>
-        </nav>
-    );
+            <div className="logoutBtn" onClick={(event) => { event.stopPropagation(); handleLogout()}}> <GoSignOut /> </div>
+          </div>
+        ) : (
+          <div className="navItem" onClick={() => { navigate("/")}}> <FaUser /> <span>Login</span> </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -14,7 +14,9 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const cartItems = user ? cartByUser[user.id] || [] : [];
 
   const addToCart = (product: ProductDataProp) => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const userCart = cartByUser[user.id] || [];
     const existingItem = userCart.find(item => item.id === product.id);
@@ -32,6 +34,7 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           : item
       );
     } else {
+
       updatedCart = [
         ...userCart,
         {
@@ -52,7 +55,9 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   };
 
   const increaseQty = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const updatedCart = cartItems.map(item =>
       item.id === id
@@ -68,7 +73,9 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   };
 
   const decreaseQty = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const updatedCart = cartItems.map(item =>
       item.id === id && item.quantity > 1
@@ -84,16 +91,22 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   };
 
   const removeItem = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
+
+    const updatedCart = cartItems.filter(item => item.id !== id);
 
     setCartByUser({
       ...cartByUser,
-      [user.id]: cartItems.filter(item => item.id !== id),
+      [user.id]: updatedCart,
     });
   };
 
   const clearCart = () => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     setCartByUser({
       ...cartByUser,
@@ -103,15 +116,7 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   return (
     <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        increaseQty,
-        decreaseQty,
-        removeItem,
-        clearCart,
-      }}
-    >
+      value={{ cartItems, addToCart, increaseQty, decreaseQty, removeItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );

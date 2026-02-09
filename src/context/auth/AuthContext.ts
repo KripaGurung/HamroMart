@@ -14,4 +14,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
+console.log("AuthContext created");
+
 export const AuthContext = createContext<AuthContextType | null>(null);
