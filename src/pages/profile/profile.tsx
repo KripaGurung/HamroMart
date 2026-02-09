@@ -27,55 +27,43 @@ interface User {
 const Profile: React.FC = () => {
   const { user: authUser } = useAuth();
   const navigate = useNavigate();
-  console.log("Auth user from context:", authUser);
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     if (!authUser) {
-      console.log("No auth user found, redirecting to home");
       navigate("/");
       return;
     }
 
     const fetchUserDetails = async () => {
       try {
-        console.log("Fetching profile for user ID:", authUser.id);
-
-        const response = await axios.get(
-          `${userDelURL}/${authUser.id}`
-        );
-        console.log("User profile API response:", response.data);
+        const response = await axios.get(`${userDelURL}/${authUser.id}`);
         setUser(response.data);
       } catch (error) {
         console.error("Failed to fetch user data", error);
       } finally {
-        console.log("Profile loaded");
         setLoading(false);
       }
     };
 
     fetchUserDetails();
-  }, [authUser, navigate]);
 
-  if (loading) {
-    console.log("Profile page loading...");
-    return <p className="loading">Loading...</p>;
-  }
+    console.log("Fetched User Details: ", user);
+    console.log("User ID from Fetched Data: ", user?.id);
+  }, [user, authUser, navigate]);
 
-  if (!user) {
-    console.log("User data not found");
-    return <p className="loading">No user found</p>;
-  }
-
-  console.log("Profile User:", user);
+  if (loading) return <p className="loading">Loading...</p>;
+  if (!user) return <p className="loading">No user found</p>;
 
   return (
     <div className="profilePage">
       <div className="profileCard">
         <div className="profileHeader"></div>
 
-        <img src={user.image} alt="profile" className="profileImg"/>
+        <img src={user.image} alt="profile" className="profileImg" />
 
         <h2> {user.firstName} {user.lastName} </h2>
 
@@ -93,8 +81,10 @@ const Profile: React.FC = () => {
           <div className="infoBox">
             <h4>Address</h4>
             <p>{user.address.address}</p>
-            <p> {user.address.city}, {user.address.state} </p>
-            <p> {user.address.postalCode} </p>
+            <p>
+              {user.address.city}, {user.address.state}
+            </p>
+            <p>{user.address.postalCode}</p>
           </div>
         </div>
       </div>
