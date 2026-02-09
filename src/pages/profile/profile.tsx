@@ -32,7 +32,6 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     if (!authUser) {
       navigate("/");
       return;
@@ -40,7 +39,13 @@ const Profile: React.FC = () => {
 
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`${userDelURL}/${authUser.id}`);
+        const response = await axios.get(
+          `${userDelURL}/${authUser.id}`
+        );
+
+        console.log("Fetched User Details:", response.data);
+        console.log("User ID from API:", response.data.id);
+
         setUser(response.data);
       } catch (error) {
         console.error("Failed to fetch user data", error);
@@ -50,10 +55,7 @@ const Profile: React.FC = () => {
     };
 
     fetchUserDetails();
-
-    console.log("Fetched User Details: ", user);
-    console.log("User ID from Fetched Data: ", user?.id);
-  }, [user, authUser, navigate]);
+  }, [authUser, navigate]); 
 
   if (loading) return <p className="loading">Loading...</p>;
   if (!user) return <p className="loading">No user found</p>;
@@ -64,9 +66,7 @@ const Profile: React.FC = () => {
         <div className="profileHeader"></div>
 
         <img src={user.image} alt="profile" className="profileImg" />
-
         <h2> {user.firstName} {user.lastName} </h2>
-
         <p className="job"> {user.company.title} at {user.company.name} </p>
 
         <span className="memberId"> Member ID #{user.id} </span>
@@ -81,9 +81,7 @@ const Profile: React.FC = () => {
           <div className="infoBox">
             <h4>Address</h4>
             <p>{user.address.address}</p>
-            <p>
-              {user.address.city}, {user.address.state}
-            </p>
+            <p> {user.address.city}, {user.address.state} </p>
             <p>{user.address.postalCode}</p>
           </div>
         </div>

@@ -18,20 +18,27 @@ interface DetailsData {
 }
 
 const Details: React.FC = () => {
-    
   const navigate = useNavigate();
   const { id } = useParams();
   const [details, setDetails] = useState<DetailsData | null>(null);
-  const { user } = useAuth();
-  const { addToCart } = useCart();
-  const { cartItems } = useCart();
 
-  const isInCart = details? cartItems.some(item => item.id === details.id) : false;
+  const { user } = useAuth();
+  const { addToCart, cartItems } = useCart();
+
+  const isInCart = details ? cartItems.some(item => item.id === details.id) : false;
 
   useEffect(() => {
+    if (!id) return;
+
     const fetchDetails = async () => {
       try {
-        const response = await axios.get(`${productDetailsURL}/${id}`);
+        const response = await axios.get(
+          `${productDetailsURL}/${id}`
+        );
+
+        console.log("Product ID:", id);
+        console.log("Fetched Details:", response.data);
+
         setDetails(response.data);
       } catch (error) {
         console.error("Failed to fetch product details", error);
@@ -39,26 +46,23 @@ const Details: React.FC = () => {
     };
 
     fetchDetails();
-    console.log("Product ID:", id);
-    console.log("Fetched Details:", details);
-  }, [id, details]);
+  }, [id]); 
 
-  if (!details) return null;
- 
+  if (!details) return <p className="loading">Loading...</p>;
+
   const handleAddToCart = () => {
-  if (!user) {
-    alert("Please login first to add products to cart");
-    return;
-  }
+    if (!user) {
+      alert("Please login first to add products to cart");
+      return;
+    }
 
-  addToCart(details);
-};
-
+    addToCart(details);
+  };
 
   return (
     <div className="detailsContainer">
-      <div onClick={() => navigate(-1)} className="arrow"> ← Back to Products</div>
-      
+      <div onClick={() => navigate(-1)} className="arrow"> ← Back to Products </div>
+
       <div className="details">
         <div className="detailsCard">
           <img src={details.thumbnail} alt={details.title} />
@@ -69,18 +73,17 @@ const Details: React.FC = () => {
             <div className="detailsInfo">
               <div className="rating">
                 <FaStar />
-                <span className="ratingNumber">{details.rating}</span>
+                <span className="ratingNumber"> {details.rating} </span>
               </div>
 
-              <p className="category">{details.category}</p>
+              <p className="category"> {details.category} </p>
             </div>
 
-            <p className="description">{details.description}</p>
+            <p className="description"> {details.description} </p>
 
             <div className="detailsButton">
-              <p className="price">${details.price}</p>
-              <button disabled={isInCart} onClick={handleAddToCart} > {isInCart ? "Added to Cart" : "Add to Cart"} </button>
-
+              <p className="price"> ${details.price} </p>
+              <button disabled={isInCart} onClick={handleAddToCart}> {isInCart ? "Added to Cart" : "Add to Cart"} </button>
             </div>
           </div>
         </div>
