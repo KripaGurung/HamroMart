@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { allUserURL } from "../../api";
-import { AuthContext } from "../../context/auth/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { AuthContext} from '../../context/auth/AuthContext';
+import { useNavigate  } from 'react-router-dom';
 import "./Login.css";
-
 interface UserData {
   id: number;
   firstName: string;
@@ -22,50 +21,35 @@ const Login: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(allUserURL);
-        console.log("API response:", response.data);
-
-        if (Array.isArray(response.data.users)) {
-          setUsers(response.data.users);
-        } else {
-          console.error("Users is not an array", response.data);
-        }
+        setUsers(response.data.users);
       } catch (error) {
         console.error("Failed to fetch users", error);
       }
     };
-
+ 
     fetchUsers();
   }, []);
 
   const handleLogin = (user: UserData) => {
-    if (!authContext) {
-      console.error("AuthContext is missing");
-      return;
-    }
-
-    console.log("User clicked:", user);
-    authContext.login(user);
-    navigate("/home");
-  };
+    authContext?.login(user);
+    console.log("Logged in User ",user);
+    navigate('/home')
+  }
 
   return (
     <div className="loginContainer">
       <h2>Log In</h2>
 
       <div className="loginGrid">
-        {users.map((user) => {
-          console.log("User Info: ", "First Name:", user.firstName, "Last Name:", user.lastName, "Email:", user.email);
-
-          return (
-            <div className="loginCard" key={user.id} onClick={() => handleLogin(user)}>
-              <img src={user.image} alt={user.firstName} />
-              <div className="loginDetails">
-                <h3>{user.firstName} {user.lastName}</h3>
-                <p>{user.email}</p>
-              </div>
+        {users.map((user) => (
+          <div className="loginCard" key={user.id} onClick = {() => handleLogin(user)}>
+                <img src={user.image} alt={user.firstName} />
+                <div className="loginDetails">
+                    <h3>{user.firstName} {user.lastName}</h3>
+                    <p>{user.email}</p>
+                </div>
             </div>
-          );
-        })}
+        ))}
       </div>
     </div>
   );
