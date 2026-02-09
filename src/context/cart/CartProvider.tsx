@@ -6,15 +6,25 @@ import { useAuth } from "../auth/useAuth";
 
 const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
+  console.log("CartProvider auth user:", user);
 
   const [cartByUser, setCartByUser] = useState<{
     [key: number]: CartItem[];
   }>({});
 
+  console.log("Cart state by user:", cartByUser);
+
   const cartItems = user ? cartByUser[user.id] || [] : [];
 
+  console.log("Current cart items:", cartItems);
+
   const addToCart = (product: ProductDataProp) => {
-    if (!user) return;
+    if (!user) {
+      console.log("Add to cart blocked: no user");
+      return;
+    }
+
+    console.log("Add to cart called with product:", product);
 
     const userCart = cartByUser[user.id] || [];
     const existingItem = userCart.find(item => item.id === product.id);
@@ -22,6 +32,8 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     let updatedCart: CartItem[];
 
     if (existingItem) {
+      console.log("Product already in cart, increasing quantity");
+
       updatedCart = userCart.map(item =>
         item.id === product.id
           ? {
@@ -32,6 +44,8 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           : item
       );
     } else {
+      console.log("NO, Product in cart, adding new item");
+
       updatedCart = [
         ...userCart,
         {
@@ -45,6 +59,8 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       ];
     }
 
+    console.log("Updated cart for user:", updatedCart);
+
     setCartByUser({
       ...cartByUser,
       [user.id]: updatedCart,
@@ -52,7 +68,12 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   };
 
   const increaseQty = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      console.log("Increase qty blocked: no user");
+      return;
+    }
+
+    console.log("Increase quantity for product id:", id);
 
     const updatedCart = cartItems.map(item =>
       item.id === id
@@ -64,11 +85,18 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         : item
     );
 
+    console.log("Cart after increase:", updatedCart);
+
     setCartByUser({ ...cartByUser, [user.id]: updatedCart });
   };
 
   const decreaseQty = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      console.log("Decrease qty blocked: no user");
+      return;
+    }
+
+    console.log("Decrease quantity for product id:", id);
 
     const updatedCart = cartItems.map(item =>
       item.id === id && item.quantity > 1
@@ -80,20 +108,36 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         : item
     );
 
+    console.log("Cart after decrease:", updatedCart);
+
     setCartByUser({ ...cartByUser, [user.id]: updatedCart });
   };
 
   const removeItem = (id: number) => {
-    if (!user) return;
+    if (!user) {
+      console.log("Remove item blocked: no user");
+      return;
+    }
+
+    console.log("Deleting item:", id);
+
+    const updatedCart = cartItems.filter(item => item.id !== id);
+
+    console.log("Cart after remove:", updatedCart);
 
     setCartByUser({
       ...cartByUser,
-      [user.id]: cartItems.filter(item => item.id !== id),
+      [user.id]: updatedCart,
     });
   };
 
   const clearCart = () => {
-    if (!user) return;
+    if (!user) {
+      console.log("Clear cart blocked: no user");
+      return;
+    }
+
+    console.log("Clearing cart for user:", user.id);
 
     setCartByUser({
       ...cartByUser,
@@ -103,15 +147,7 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   return (
     <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        increaseQty,
-        decreaseQty,
-        removeItem,
-        clearCart,
-      }}
-    >
+      value={{ cartItems, addToCart, increaseQty, decreaseQty, removeItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );
